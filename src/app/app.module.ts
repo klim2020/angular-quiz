@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
+
 
 @NgModule({
   declarations: [
@@ -12,7 +12,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ProgressSpinnerModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
