@@ -1,2 +1,45 @@
 <p>New Component</p>
+<i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+
+<p-panel header="Title">
+  Content
+</p-panel>
+
+<p-panel >
+
+</p-panel>
+
+<p-panel >
+  <ng-template pTemplate="header">
+    Currencies
+  </ng-template>
+
+  <p-table #dt [columns]="cols" [value]="currencyList.currencies" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of columns">
+          <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions"
+                          [matchMode]="'custom-equals'"></p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+        <td *ngFor="let col of columns">
+          {{rowData[col.field]}}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</p-panel>
+
+
+
+
 

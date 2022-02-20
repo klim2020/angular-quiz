@@ -1,6 +1,6 @@
 import {IDataProvider} from "./IDataProvider";
 import * as json from '../../../assets/currencies.json';
-
+import * as json_old from '../../../assets/currencies_old.json';
 
 export  class DataProvider implements IDataProvider{
   fetchCurrentValues(): any {
@@ -11,7 +11,7 @@ export  class DataProvider implements IDataProvider{
 
   fetchForCurrentDate(date: string): any {
     let values: any
-    values = json;
+    values = json_old;
     return values[0];
   }
 
