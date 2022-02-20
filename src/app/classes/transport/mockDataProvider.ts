@@ -1,6 +1,5 @@
 import {IDataProvider} from "./IDataProvider";
 import * as json from '../../../assets/currencies.json';
-//var json = require('../../../assets/currencies.json');
 
 
 export  class DataProvider implements IDataProvider{
