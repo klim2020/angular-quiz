@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BankData } from './services/BankData';
+import { IDataProvider } from './classes/transport/IDataProvider';
 import {BankdataserviceService} from "./services/bankdataservice.service";
 
 
@@ -10,11 +10,12 @@ import {BankdataserviceService} from "./services/bankdataservice.service";
 })
 export class AppComponent implements OnInit{
   title = 'quiz';
-  private bankdata : BankData;
+  private bankService: BankdataserviceService;
+
   ngOnInit(): void {
-    console.log(this.bankdata.fetchForCurrentDate());
+    console.log(this.bankService.getTodayData());
   }
   constructor(bankdataservice : BankdataserviceService) {
-    this.bankdata = bankdataservice.getData();
+    this.bankService = bankdataservice;
   }
 }
