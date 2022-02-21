@@ -3,6 +3,7 @@ import { IDataProvider } from './classes/transport/IDataProvider';
 import {BankdataserviceService} from "./services/bankdataservice.service";
 import {CurrencyList} from "./classes/CurrencyList";
 import {FilterMatchMode, FilterService, SelectItem} from "primeng/api";
+import moment from "moment/moment";
 
 
 
@@ -18,12 +19,13 @@ export class AppComponent implements OnInit{
   currencyList!: CurrencyList;
   matchModeOptions!: SelectItem[] ;
   cols: ({ field: string; header: string; } | { field: string; header: string; } | { field: string; header: string; } | { field: string; header: string; })[] | any;
+  calendarvalue: any;
 
   ngOnInit(): void {
 
     this.currencyList = this.bankService.getTodayData();
     console.log(this.currencyList);
-    setTimeout(() => {this.currencyList = this.bankService.getSpecData("2222-22-22");},10000);
+
 
     const customFilterName = "custom-equals";
 
@@ -61,5 +63,10 @@ export class AppComponent implements OnInit{
     this.bankService = bankdataservice;
     this.matchModeOptions = [];
 
+  }
+
+  handleClick($event: any) {
+    this.currencyList = this.bankService.getSpecData((moment(this.calendarvalue)).format("YYYY-MM-DD"));
+    alert((moment(this.calendarvalue)).format("YYYY-MM-DD"));
   }
 }

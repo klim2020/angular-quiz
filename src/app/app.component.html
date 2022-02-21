@@ -1,17 +1,12 @@
-<p>New Component</p>
-<i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-
-<p-panel header="Title">
-  Content
-</p-panel>
-
-<p-panel >
-
-</p-panel>
-
 <p-panel >
   <ng-template pTemplate="header">
-    Currencies
+
+    <span style="font-weight: bold">Select a date :</span>
+
+    <p-calendar [(ngModel)]="calendarvalue"  dateFormat="yy-mm-dd" [inline]="false"></p-calendar>
+
+    <p-button label="Select" icon="pi pi-check" iconPos="left" (onClick)="handleClick($event)"></p-button>
+
   </ng-template>
 
   <p-table #dt [columns]="cols" [value]="currencyList.currencies" [paginator]="true" [rows]="10" responsiveLayout="scroll">
