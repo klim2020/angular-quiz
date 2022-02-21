@@ -32,9 +32,20 @@
             ],
             "styles": [
               "src/styles.scss",
+
+              {
+                "input": "src/thelight.css",
+                "bundleName": "thelight",
+                "inject": false
+              },
+              {
+                "input": "src/thedark.css",
+                "bundleName": "thedark",
+                "inject": false
+              },
               "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/lara-light-indigo/theme.css"
+              "node_modules/primeicons/primeicons.css"
+
             ],
             "scripts": []
           },

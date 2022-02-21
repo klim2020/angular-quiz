@@ -6,13 +6,14 @@ export  class DataProvider implements IDataProvider{
   fetchCurrentValues(): any {
     let values: any
     values = json;
-    return values[0];
+
+    return Promise.resolve(values[0]).then((val)=>{return val});
   }
 
   fetchForCurrentDate(date: string): any {
     let values: any
     values = json_old;
-    return values[0];
+    return Promise.resolve(values[0]).then((val)=>{return val});
   }
 
 }

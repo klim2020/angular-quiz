@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import { IDataProvider } from './classes/transport/IDataProvider';
 import {BankdataserviceService} from "./services/bankdataservice.service";
 import {CurrencyList} from "./classes/CurrencyList";
-import {FilterMatchMode, FilterService, SelectItem} from "primeng/api";
+import {FilterMatchMode, FilterService, SelectItem, SortEvent} from "primeng/api";
 import moment from "moment/moment";
+import { Table } from 'primeng/table';
+
+
+
+import { OverlayContainer} from '@angular/cdk/overlay';
 
 
 
@@ -13,6 +18,10 @@ import moment from "moment/moment";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
+
+
+
+  @ViewChild('dt', { static: true }) dt: Table;
   title = 'quiz';
   private bankService: BankdataserviceService;
   value: any;
@@ -20,11 +29,15 @@ export class AppComponent implements OnInit{
   matchModeOptions!: SelectItem[] ;
   cols: ({ field: string; header: string; } | { field: string; header: string; } | { field: string; header: string; } | { field: string; header: string; })[] | any;
   calendarvalue: any;
+  theme: any;
+  selectedItem : any;
 
   ngOnInit(): void {
+    this.bankService.getTodayData().then( val => this.currencyList = val );
 
-    this.currencyList = this.bankService.getTodayData();
-    console.log(this.currencyList);
+  this.theme = [{name: 'Dark', code: 'NY',val:'thedark.css'},{name: 'Light', code: 'RM', val:'thelight.css'}];
+   this.selectedItem = this.theme[0];
+
 
 
     const customFilterName = "custom-equals";
@@ -44,11 +57,14 @@ export class AppComponent implements OnInit{
       }
     );
 
+
+
+
+
     this.cols = [
-      { field: "name", header: "Name" },
-      { field: "code", header: "Code" },
-      { field: "price", header: "Price to PLN" },
-      { field: "vin", header: "Vin" }
+      { field: "code", header: "Symbol Waluty" },
+      { field: "name", header: "Waluta" },
+      { field: "price", header: "Kurs Waluty" },
     ];
 
     this.matchModeOptions = [
@@ -59,14 +75,41 @@ export class AppComponent implements OnInit{
 
 
   }
-  constructor(bankdataservice : BankdataserviceService, private filterService: FilterService) {
+  constructor(bankdataservice : BankdataserviceService,
+              private filterService: FilterService,
+              public overlayContainer: OverlayContainer
+              ) {
     this.bankService = bankdataservice;
     this.matchModeOptions = [];
+    this.overlayContainer = overlayContainer;
 
   }
 
   handleClick($event: any) {
-    this.currencyList = this.bankService.getSpecData((moment(this.calendarvalue)).format("YYYY-MM-DD"));
-    alert((moment(this.calendarvalue)).format("YYYY-MM-DD"));
+
+    let ffs= this.bankService.getSpecData((moment(this.calendarvalue)).format("YYYY-MM-DD")).then((val)=>{
+
+      this.currencyList = val;
+      console.log("reseting val");
+      this.dt.reset();
+      this.dt.totalRecords = this.currencyList.length;
+
+      });
+
   }
+
+  changeTheme($event: any) {
+    console.log(this.theme[$event.index].val);
+    // @ts-ignore
+    var myElement = document.querySelector("#app-theme").href = this.theme[$event.index].val;
+
+
+    //let themeLink = this.document.getElementById('app-theme') as HTMLLinkElement;
+    //themeLink.href = 'thelight.css';
+
+    //this.overlayContainer.getContainerElement().classList.add("light-custom-theme");
+
+  }
+
+  
 }

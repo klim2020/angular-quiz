@@ -10,6 +10,7 @@ import {CardModule} from "primeng/card";
 import {CalendarModule} from "primeng/calendar";
 import {FormsModule} from "@angular/forms";
 import {TableModule} from "primeng/table";
+import {SelectButtonModule} from "primeng/selectbutton";
 //
 
 
@@ -31,6 +32,7 @@ import {TableModule} from "primeng/table";
     CalendarModule,
     FormsModule,
     TableModule,
+    SelectButtonModule,
 
 
   ],
