@@ -36,7 +36,9 @@
     </ng-template>
 
   </p-table>
-  <p-message  styleClass="mr-2" [hidden]="!bankService.errorPane" severity="info" text="Brak dannych"></p-message>
+  <div style="text-align:center">
+    <p-message  styleClass="mr-2" [hidden]="!bankService.errorPane" severity="error" text="Brak dannych"></p-message>
+  </div>
 </p-panel>
 
 
