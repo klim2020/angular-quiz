@@ -30,7 +30,7 @@ export class CurrencyList {
       this._currencies =[];
     }
 
-    });
+    })
   }
 
   get currencies(): Currency[] {

@@ -11,6 +11,7 @@ import {CalendarModule} from "primeng/calendar";
 import {FormsModule} from "@angular/forms";
 import {TableModule} from "primeng/table";
 import {SelectButtonModule} from "primeng/selectbutton";
+import {MessageModule} from "primeng/message";
 //
 
 
@@ -33,6 +34,7 @@ import {SelectButtonModule} from "primeng/selectbutton";
     FormsModule,
     TableModule,
     SelectButtonModule,
+    MessageModule,
 
 
   ],

@@ -9,6 +9,7 @@ import { CurrencyList } from "../classes/CurrencyList";
 })
 export class BankdataserviceService {
   private dataProvider :  IDataProvider;
+  errorPane: boolean = false;
 
 
   async getTodayData():Promise<CurrencyList> {
@@ -17,7 +18,12 @@ export class BankdataserviceService {
    }
 
    async getSpecData(date : string):Promise<CurrencyList>{
-     return new CurrencyList(this.dataProvider.fetchForCurrentDate(date));
+      let res = this.dataProvider.fetchForCurrentDate(date)
+          .catch(()=>{
+            console.log("error");
+            this.errorPane = true;
+          })
+     return new CurrencyList(res);
    }
   constructor() {
     this.dataProvider = new DataProvider();

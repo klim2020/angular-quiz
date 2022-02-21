@@ -23,7 +23,7 @@ export class AppComponent implements OnInit{
 
   @ViewChild('dt', { static: true }) dt: Table;
   title = 'quiz';
-  private bankService: BankdataserviceService;
+  bankService: BankdataserviceService;
   value: any;
   currencyList!: CurrencyList;
   matchModeOptions!: SelectItem[] ;
@@ -32,8 +32,16 @@ export class AppComponent implements OnInit{
   theme: any;
   selectedItem : any;
 
+
   ngOnInit(): void {
-    this.bankService.getTodayData().then( val => this.currencyList = val );
+    this.bankService.getTodayData().then( (val) => {
+      this.currencyList = val;
+      if (this.currencyList.length === 0)
+      {
+        //this.bankService.errorPane = true
+      }
+      return val;
+    });
 
   this.theme = [{name: 'Dark', code: 'NY',val:'thedark.css'},{name: 'Light', code: 'RM', val:'thelight.css'}];
    this.selectedItem = this.theme[0];
@@ -86,15 +94,16 @@ export class AppComponent implements OnInit{
   }
 
   handleClick($event: any) {
-
-    let ffs= this.bankService.getSpecData((moment(this.calendarvalue)).format("YYYY-MM-DD")).then((val)=>{
+    let ffs = this.bankService.getSpecData((moment(this.calendarvalue)).format("YYYY-MM-DD")).catch((e)=>{
+      console.log("error");
+    });
+    ffs.then((val:CurrencyList | any)=>{
 
       this.currencyList = val;
-      console.log("reseting val");
       this.dt.reset();
       this.dt.totalRecords = this.currencyList.length;
-
-      });
+      this.bankService.errorPane = false;
+      })
 
   }
 
@@ -111,5 +120,5 @@ export class AppComponent implements OnInit{
 
   }
 
-  
+
 }
